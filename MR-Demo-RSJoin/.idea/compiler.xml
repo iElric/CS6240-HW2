@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mr-demo" />
+        <module name="RSJoin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="mr-demo" target="1.8" />
+      <module name="RSJoin" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -20,8 +20,8 @@ aws.subnet.id=subnet-18100f70
 aws.input=input
 aws.output=output
 aws.log.dir=log
-aws.num.nodes=5
-aws.instance.type=m4.xlarge
+aws.num.nodes=10
+aws.instance.type=m4.large
 # -----------------------------------------------------------
 
 # Compiles code and builds jar (with dependencies).
