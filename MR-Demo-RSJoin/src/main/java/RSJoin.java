@@ -124,7 +124,7 @@ public class RSJoin extends Configured implements Tool {
     private final Text result = new Text();
 
     @Override
-    public void map(final Object key, final Text value, final Context context)
+    protected void map(final Object key, final Text value, final Context context)
         throws IOException, InterruptedException {
 
       final String[] edges = value.toString().split(",");
@@ -170,7 +170,8 @@ public class RSJoin extends Configured implements Tool {
     }
   }
 
-  private int Path2Job(String input, String output) throws Exception {
+  private int Path2Job(String input, String output)
+      throws IOException, InterruptedException, ClassNotFoundException {
     final Configuration conf = getConf();
     final Job path2Job = Job.getInstance(conf, "Path2Job");
     path2Job.setJarByClass(RSJoin.class);
@@ -185,7 +186,8 @@ public class RSJoin extends Configured implements Tool {
     return path2Job.waitForCompletion(true) ? 0 : 1;
   }
 
-  private int TriangleJob(String input, String output) throws Exception {
+  private int TriangleJob(String input, String output)
+      throws IOException, InterruptedException, ClassNotFoundException {
     final Configuration conf = getConf();
     final Job triangleJob = Job.getInstance(conf, "TriangleJob");
     triangleJob.setJarByClass(RSJoin.class);
@@ -201,7 +203,9 @@ public class RSJoin extends Configured implements Tool {
     FileOutputFormat.setOutputPath(triangleJob, new Path(output + "/Final"));
     triangleJob.waitForCompletion(true);
 
-    // get the counter
+    // get the counter, note that the number of counter is not the number of triangle.
+    // for each triangle x, y, z, we have counted (x, y, z) , (y, z, x), (z, x, y), so the number of
+    // triangle = counter / 3
     Counters cn = triangleJob.getCounters();
     Counter sum = cn.findCounter(COUNTER.TRIANGLE);
 
